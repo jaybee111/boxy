@@ -1,0 +1,6 @@
+/data/*
+/certs/*
+.env
+/.idea
+/.vscode
+!*.gitkeep

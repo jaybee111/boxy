@@ -1,0 +1,52 @@
+name: boxy
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./containers/httpd/Dockerfile
+      args:
+        APACHE_VERSION: ${APACHE_VERSION}
+        TLD: ${TLD}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./certs:/usr/local/apache2/certs:ro
+      - ./data/www:/usr/local/apache2/htdocs
+      - ./containers/httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+    depends_on:
+      - php
+  php:
+    build:
+      context: ./containers/php
+      args:
+        PHP_VERSION: ${PHP_VERSION}
+    volumes:
+      - ./data/www:/usr/local/apache2/htdocs
+    working_dir: /usr/local/apache2/htdocs
+  db:
+    build:
+      context: ./containers/mariadb
+      args:
+        PHP_VERSION: ${MARIADB_VERSION}
+    environment:
+      MARIADB_ROOT_PASSWORD:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
+    volumes:
+      - ./data/db:/var/lib/mysql
+      - ./containers/mariadb/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+  phpmyadmin:
+      build:
+        context: ./containers/phpmyadmin
+        args:
+          PHP_VERSION: ${PHPMYADMIN_VERSION}
+      environment:
+        PMA_HOST: db
+      ports:
+        - "8080:80"
+      depends_on:
+        - db
+      volumes:
+        - ./containers/phpmyadmin/config.inc.php:/etc/phpmyadmin/config.inc.php:ro
+
