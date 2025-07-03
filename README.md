@@ -26,11 +26,14 @@ git clone git@github.com:jaybee111/boxy.git
 # Copy .env.example
 cp .env.exmaple .env
 
-# Install SSL Certificates / edit domain value if you edit the .env variable TLD
+# Install SSL Certificates / edit the domain value if you edited the TLD variable in .env.
 cd certs && mkcert "*.dev.loc" dev.loc localhost 127.0.0.1 ::1
 ```
 
 ## Usage
+
+All projects are stored in ``data/www``. A project path ``data/www/test/htdocs`` is mapped to the following domain ``test.dev.loc``. Ensure that you set ``test.dev.loc`` in ``hosts`` file: ``127.0.0.1 test.dev.loc``.
+Use symlinks like ``ln -s xyz/public htdocs`` if you can't use the default ``htdocs`` folder.
 
 ```bash
 # Start boxy
@@ -38,6 +41,9 @@ docker compose up
 
 # Stop boxy
 docker compose down
+
+# SSH Login
+docker compose exec php bash
 ```
 
 ## Configuration
