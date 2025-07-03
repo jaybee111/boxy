@@ -24,7 +24,7 @@ Step-by-step instructions on how to get the development environment running.
 git clone git@github.com:jaybee111/boxy.git
 
 # Copy .env.example
-cp .env.exmaple .env
+cp .env.example .env
 
 # Install SSL Certificates / edit the domain value if you edited the TLD variable in .env.
 cd certs && mkcert "*.dev.loc" dev.loc localhost 127.0.0.1 ::1
@@ -35,9 +35,11 @@ cd certs && mkcert "*.dev.loc" dev.loc localhost 127.0.0.1 ::1
 All projects are stored in ``data/www``. A project path ``data/www/test/htdocs`` is mapped to the following domain ``test.dev.loc``. Ensure that you set ``test.dev.loc`` in ``hosts`` file: ``127.0.0.1 test.dev.loc``.
 Use symlinks like ``ln -s xyz/public htdocs`` if you can't use the default ``htdocs`` folder.
 
+### Commands
+
 ```bash
 # Start boxy
-docker compose up
+docker compose up -d
 
 # Stop boxy
 docker compose down
@@ -45,6 +47,10 @@ docker compose down
 # SSH Login
 docker compose exec php bash
 ```
+
+### PHPMyAdmin
+
+PHPMyAdmin is available by http://localhost:8080
 
 ## Configuration
 
