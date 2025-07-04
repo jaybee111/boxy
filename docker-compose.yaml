@@ -24,6 +24,7 @@ services:
         PHP_VERSION: ${PHP_VERSION}
     volumes:
       - ./data/www:/usr/local/apache2/htdocs
+      - ./containers/php/php.ini:/usr/local/etc/php/php.ini:ro
     working_dir: /usr/local/apache2/htdocs
   db:
     build:

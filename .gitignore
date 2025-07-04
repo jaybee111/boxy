@@ -4,3 +4,5 @@
 /.idea
 /.vscode
 !*.gitkeep
+docker-compose.override.yaml
+containers/php/php.custom.ini

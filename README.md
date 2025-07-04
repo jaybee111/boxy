@@ -64,6 +64,17 @@ Use the `.env` for configuration
 | MARIADB_VERSION | 11.8    | Only Version 11.8 is supported                                                                                                                                                                                                  |
 | PHPMYADMIN_VERSION | 5.2     | Only Version 5.2 is supported                                                                                                                                                                                                   |
 
+### PHP
+
+Create a ``/containers/php/php.custom.ini`` file for custom configuration. Additionally create an ``docker-compose.override.yaml`` and add following lines:
+
+```bash
+services:
+  php:
+    volumes:
+      - ./containers/php/php.custom.ini:/usr/local/etc/php/php.ini
+```
+
 ## License
 
 This project is licensed under the MIT License.
