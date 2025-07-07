@@ -46,6 +46,9 @@ docker compose down
 
 # SSH Login
 docker compose exec php bash
+
+# Rebuild on .env change
+docker compose build --no-cache
 ```
 
 ### PHPMyAdmin
