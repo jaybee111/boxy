@@ -30,7 +30,7 @@ services:
     build:
       context: ./containers/mariadb
       args:
-        PHP_VERSION: ${MARIADB_VERSION}
+        MARIADB_VERSION: ${MARIADB_VERSION}
     environment:
       MARIADB_ROOT_PASSWORD:
       MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
@@ -41,7 +41,7 @@ services:
       build:
         context: ./containers/phpmyadmin
         args:
-          PHP_VERSION: ${PHPMYADMIN_VERSION}
+          PHPMYADMIN_VERSION: ${PHPMYADMIN_VERSION}
       environment:
         PMA_HOST: db
       ports:
