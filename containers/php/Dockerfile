@@ -15,7 +15,7 @@ RUN apt-get update \
   && docker-php-ext-configure gd \
     --with-freetype \
     --with-jpeg \
-  && docker-php-ext-install gd calendar zip pdo_mysql intl \
+  && docker-php-ext-install gd calendar zip pdo_mysql intl mysqli \
   && rm -rf /var/lib/apt/lists/*
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
