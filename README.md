@@ -28,6 +28,9 @@ cp .env.example .env
 
 # Install SSL Certificates / edit the domain value if you edited the TLD variable in .env.
 cd certs && mkcert "*.dev.loc" dev.loc localhost 127.0.0.1 ::1
+
+# Download all PHP-Images for switching versions
+cd scripts && sh pull-php-images.sh
 ```
 
 ## Usage
@@ -47,8 +50,8 @@ docker compose down
 # SSH Login
 docker compose exec php bash
 
-# Rebuild on .env change
-docker compose build --no-cache
+# Download all PHP-Images
+cd scripts && sh pull-php-images.sh
 ```
 
 ### PHPMyAdmin
