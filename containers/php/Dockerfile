@@ -10,11 +10,13 @@ RUN apt-get update \
     libjpeg-dev \
     libpng-dev \
     libfreetype6-dev \
+    libwebp-dev \
     libzip-dev \
     libicu-dev \
   && docker-php-ext-configure gd \
     --with-freetype \
     --with-jpeg \
+    --with-webp \
   && docker-php-ext-install gd calendar zip pdo_mysql intl mysqli \
   && rm -rf /var/lib/apt/lists/*
 

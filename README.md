@@ -52,6 +52,10 @@ docker compose exec php bash
 
 # Download all PHP-Images
 cd scripts && sh pull-php-images.sh
+
+# Rebuild images
+docker compose build --no-cache
+
 ```
 
 ### PHPMyAdmin
