@@ -21,3 +21,12 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+ENV NVM_DIR=/root/.nvm
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
+  && . "$NVM_DIR/nvm.sh" \
+  && nvm install --lts
+
+ARG PUID=1000
+ARG PGID=1000
+RUN usermod -u ${PUID} www-data && groupmod -g ${PGID} www-data
