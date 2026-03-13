@@ -62,7 +62,7 @@ cd scripts && sh pull-php-images.sh
 docker compose up -d
 
 # Rebuild all PHP versions (after Dockerfile changes)
-./scripts/build-php-versions.sh
+cd scripts && sh build-php-versions.sh
 
 # Rebuild a single PHP version
 docker compose build php
@@ -80,7 +80,7 @@ Use the `.env` for configuration
 | Key            | Default | Description                                                                                                                                                                                                                     |
 |----------------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | TLD            | dev.loc | Use a subdomain wildcard definition like `dev.loc`. Don't use TLD definition like `.loc` because SSL certificate generation is not possible. If you edit the value ensure that you regenerate the SSL Certificate with `mkcert` |
-| PHP_VERSION    | 8.4     | Version 8.1 up to 8.4 is supported                                                                                                                                                                                              |
+| PHP_VERSION    | 8.4     | Version 8.1 up to 8.5 is supported                                                                                                                                                                                              |
 | PUID           | 1000    | User ID for www-data inside the PHP container. On WSL2 run `id -u` to get your value.                                                                                                                                           |
 | PGID           | 1000    | Group ID for www-data inside the PHP container. On WSL2 run `id -g` to get your value.                                                                                                                                          |
 | APACHE_VERSION | 2.4     | Only Version 2.4 is supported                                                                                                                                                                                                   |
