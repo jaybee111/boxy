@@ -18,6 +18,7 @@ services:
     depends_on:
       - php
   php:
+    image: boxy-php:${PHP_VERSION:-8.4}
     build:
       context: ./containers/php
       args:

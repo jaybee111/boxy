@@ -31,6 +31,9 @@ cd certs && mkcert "*.dev.loc" dev.loc localhost 127.0.0.1 ::1
 
 # Download all PHP-Images for switching versions
 cd scripts && sh pull-php-images.sh
+
+# Pre-build all PHP versions (enables instant version switching without rebuild)
+cd .. && ./scripts/build-php-versions.sh
 ```
 
 ## Usage
@@ -53,8 +56,16 @@ docker compose exec php bash
 # Download all PHP-Images
 cd scripts && sh pull-php-images.sh
 
-# Rebuild images
-docker compose build --no-cache
+# Switch PHP version (no rebuild required)
+# 1. Change PHP_VERSION in .env
+# 2. Restart the container:
+docker compose up -d
+
+# Rebuild all PHP versions (after Dockerfile changes)
+./scripts/build-php-versions.sh
+
+# Rebuild a single PHP version
+docker compose build php
 
 ```
 
@@ -70,11 +81,15 @@ Use the `.env` for configuration
 |----------------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | TLD            | dev.loc | Use a subdomain wildcard definition like `dev.loc`. Don't use TLD definition like `.loc` because SSL certificate generation is not possible. If you edit the value ensure that you regenerate the SSL Certificate with `mkcert` |
 | PHP_VERSION    | 8.4     | Version 8.1 up to 8.4 is supported                                                                                                                                                                                              |
+| PUID           | 1000    | User ID for www-data inside the PHP container. On WSL2 run `id -u` to get your value.                                                                                                                                           |
+| PGID           | 1000    | Group ID for www-data inside the PHP container. On WSL2 run `id -g` to get your value.                                                                                                                                          |
 | APACHE_VERSION | 2.4     | Only Version 2.4 is supported                                                                                                                                                                                                   |
 | MARIADB_VERSION | 11.8    | Only Version 11.8 is supported                                                                                                                                                                                                  |
 | PHPMYADMIN_VERSION | 5.2     | Only Version 5.2 is supported                                                                                                                                                                                                   |
 
 ### PHP
+
+The PHP version is controlled via `PHP_VERSION` in `.env`. After running `build-php-versions.sh` once, switching versions requires no rebuild — just change `PHP_VERSION` and run `docker compose up -d`.
 
 Create a ``/containers/php/php.custom.ini`` file for custom configuration. Additionally create an ``docker-compose.override.yaml`` and add following lines:
 
